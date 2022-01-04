@@ -23,7 +23,7 @@ class RegisterController extends Controller
             ],
         ]);
         return tap(
-            User::create(request()->except('street')) ,
+            User::create(collect($data)->except('street')->all()) ,
             fn($user) => $user->address()->create(request()->only('street'))
         );
     }
