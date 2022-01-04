@@ -15,30 +15,94 @@ class RegistrationTest extends TestCase
     /** @test */
     public function it_can_register_user()
     {
-        $response = $this->postJson('/api/register',$data = [
-            'name' => 'ronald',
-            'phone' => 13798050851,
-            'location' => 'east_malaysia',
-            'password' => '123456',
-            'option' => 'air',
-            'street' => 'my street',
-        ]);
+        $this->register();
 
+        $this->assertDatabaseCount('addresses',1);
         $this->assertDatabaseCount('users',1);
-        $this->assertNotEquals('123456',User::first()->password);
     }
 
     /** @test */
-    public function it_can_register_user_address()
+    public function it_required_a_name()
     {
-        $response = $this->postJson('/api/register',$data = [
+        $this->register(['name' => ''])->assertInvalid(['name']);;
+    }
+
+    /** @test */
+    public function it_required_a_phone()
+    {
+        $this->register(['phone' => ''])->assertInvalid(['phone']);;
+    }
+
+    /** @test */
+    public function phone_must_be_11_digits()
+    {
+        $this->register(['phone' => 111111111])->assertInvalid(['phone']);;
+    }
+
+    /** @test */
+    public function it_required_a_location()
+    {
+        $this->register(['location' => ''])->assertInvalid(['location']);;
+    }
+
+    /** @test */
+    public function location_only_accept_3_values()
+    {
+        $this->register(['location' => 'ABC'])->assertInvalid(['location']);;
+    }
+
+    /** @test */
+    public function it_required_password()
+    {
+        $this->register(['password' => ''])->assertInvalid(['password']);;
+    }
+
+    /** @test */
+    public function password_must_be_at_least_6_long()
+    {
+        $this->register(['password' => 12345])->assertInvalid(['password']);;
+    }
+
+    /** @test */
+    public function it_required_a_street()
+    {
+        $this->register(['street' => ''])->assertInvalid(['street']);;
+    }
+
+    /** @test */
+    public function it_required_an_option()
+    {
+        $this->register(['optiona' => ''])->assertInvalid(['optiona']);;
+    }
+
+    /** @test */
+    public function option_must_be_a_valid_option()
+    {
+        $this->register(['optiona' => 'ssssss'])->assertInvalid(['optiona']);;
+    }
+
+    protected function register($data = [])
+    {
+        return $this->postJson('/api/register',  $this->validFields($data));
+    }
+
+
+
+    /**
+     * @param array $overrides
+     * @return array
+     */
+    protected function validFields($overrides = [])
+    {
+        return array_merge([
             'name' => 'ronald',
             'phone' => 13798050851,
-            'location' => 'east_malaysia',
+            'location' => 'EM',
             'password' => '123456',
             'option' => 'air',
-            'street' => 'air',
-        ]);
-        $this->assertDatabaseCount('addresses',1);
-    }
+            'street' => 'my street',
+        ],$overrides);
+}
+
+
 }

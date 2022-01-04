@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
-class UserUploadTrackingNumberTest extends TestCase
+class CreateTrackingNumberTest extends TestCase
 {
 
     use LazilyRefreshDatabase;
@@ -18,23 +18,33 @@ class UserUploadTrackingNumberTest extends TestCase
     /** @test */
     public function it_can_register_many_express_tracking_number()
     {
-        $user = User::factory()->create();
-
-//        Auth::loginUsingId($user->id);
-        $response =  $this->postJson('/api/tracking',[
-            'data' =>[
+//        $user = User::factory()->create();
+        $data = [
+            'data' => [
                 [
                     'company' => 'shunfeng',
                     'number' => 'amkiop',
-                    'user_id' => $user->id
                 ],
                 [
                     'company' => 'shunfeng',
                     'number' => 'amkiop111111',
-                    'user_id' => $user->id
                 ],
             ]
-        ]);
+        ];
+
+        $response =  $this->jsonAs('POST', '/api/tracking', null ,$data);
+//        $response =  $this->postJson('/api/tracking',[
+//            'data' =>[
+//                [
+//                    'company' => 'shunfeng',
+//                    'number' => 'amkiop',
+//                ],
+//                [
+//                    'company' => 'shunfeng',
+//                    'number' => 'amkiop111111',
+//                ],
+//            ]
+//        ]);
 
 //        dd($response->getContent());
         $this->assertDatabaseCount('trackings',2);
