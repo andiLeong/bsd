@@ -14,9 +14,10 @@ class TrackingController extends Controller
             'data.*.number' => 'required|unique:trackings,number',
         ]);
 
-        return Package::create()->tracking()->createMany(
+        $userId = ['user_id' => auth('api')->user()->id ];
+        return Package::create($userId)->tracking()->createMany(
             collect(request('data'))->map(
-                fn($data) =>  array_merge($data,['user_id' => auth('api')->user()->id ])
+                fn($data) => array_merge($data,$userId)
             )->all()
         );
     }

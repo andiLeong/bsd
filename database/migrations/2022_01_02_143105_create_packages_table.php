@@ -15,6 +15,7 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
             $table->string('number');
             $table->integer('price')->default(0);
             $table->integer('status')->default(0);

@@ -52,6 +52,10 @@ class User extends Authenticatable  implements JWTSubject
         return $this->hasMany(Tracking::class);
     }
 
+    public function package()
+    {
+        return $this->hasMany(Package::class);
+    }
 
     public function password(): Attribute
     {
