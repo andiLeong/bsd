@@ -72,13 +72,13 @@ class RegistrationTest extends TestCase
     /** @test */
     public function it_required_an_option()
     {
-        $this->register(['optiona' => ''])->assertInvalid(['optiona']);;
+        $this->register(['optional' => ''])->assertInvalid(['optional']);;
     }
 
     /** @test */
     public function option_must_be_a_valid_option()
     {
-        $this->register(['optiona' => 'ssssss'])->assertInvalid(['optiona']);;
+        $this->register(['optional' => 'ssssss'])->assertInvalid(['optional']);;
     }
 
     protected function register($data = [])
@@ -86,6 +86,36 @@ class RegistrationTest extends TestCase
         return $this->postJson('/api/register',  $this->validFields($data));
     }
 
+
+//    /**
+//     * @test
+//     * @dataProvider validationProvider
+//     */
+//    public function test_form_validation($formInput, $formInputValue)
+//    {
+//        $response = $this->register([
+//            $formInput => $formInputValue,
+//        ]);
+//
+//        $response->assertStatus(422);
+//        $response->assertInvalid($formInput);
+//    }
+//
+//    public function validationProvider()
+//    {
+//        return [
+//            ['name', ''],
+//            ['phone', ''],
+//            ['phone', 111111111],
+//            ['location', ''],
+//            ['location', 'ABC'],
+//            ['password', ''],
+//            ['password', '12345'],
+//            ['street', ''],
+//            ['optional', ''],
+//            ['optional', 'sssssssss'],
+//        ];
+//    }
 
 
     /**
