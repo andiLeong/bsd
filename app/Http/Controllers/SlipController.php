@@ -9,6 +9,6 @@ class SlipController extends Controller
 {
     public function index()
     {
-        return Slip::with('package')->latest()->paginate(10);
+        return Slip::with('package','user')->latest()->paginate(10);
     }
 }

@@ -17,6 +17,7 @@ class CreateSlipsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('package_id')->constrained('packages');
+            $table->boolean('approved')->default(false);
             $table->string('url');
             $table->timestamps();
         });

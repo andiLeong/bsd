@@ -17,7 +17,7 @@ class PackageController extends Controller
 
     public function show(Package $package)
     {
-        $package->load(['tracking','tracking.user']);
+        $package->load(['tracking','tracking.user','slips']);
 //                return $package;
 
         return view('packages.show',[

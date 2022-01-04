@@ -18,4 +18,9 @@ class Slip extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+    public function approve()
+    {
+        return $this->update(['approve',true]);
+    }
 }

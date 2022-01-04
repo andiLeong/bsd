@@ -26,6 +26,11 @@ class Package extends Model
         return $this->hasMany(Tracking::class);
     }
 
+    public function slips()
+    {
+        return $this->hasMany(Slip::class);
+    }
+
     public function pay()
     {
         return $this->update(['is_paid' => true]);
