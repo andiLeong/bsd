@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\SlipController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\TrackingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +43,8 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::middleware(['jwt.auth'])->group(function () {
 
     Route::post('/tracking', [TrackingController::class, 'store']);
+    Route::post('/logout', [LogoutController::class, 'store']);
+    Route::post('/slip', [SlipController::class, 'store']);
 });
 
 
