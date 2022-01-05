@@ -15,10 +15,11 @@ class LoginController extends Controller
         ]);
 
         if (! $token = auth('api')->attempt($data)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthorized, please check your credential again.'], 401);
         }
 
         return response()->json([
+            'user' => auth('api')->user(),
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
