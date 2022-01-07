@@ -15,7 +15,8 @@ class TrackingController extends Controller
         ]);
 
         $userId = ['user_id' => auth('api')->user()->id ];
-        return Package::create($userId)->tracking()->createMany(
+        $package = Package::create($userId);
+        return tap($package)->tracking()->createMany(
             collect(request('data'))->map(
                 fn($data) => array_merge($data,$userId)
             )->all()
