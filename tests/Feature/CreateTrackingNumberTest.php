@@ -18,7 +18,6 @@ class CreateTrackingNumberTest extends TestCase
     /** @test */
     public function it_can_register_many_express_tracking_number()
     {
-//        $user = User::factory()->create();
         $data = [
             'data' => [
                 [
@@ -33,22 +32,7 @@ class CreateTrackingNumberTest extends TestCase
         ];
 
         $response =  $this->jsonAs('POST', '/api/tracking', null ,$data);
-//        $response =  $this->postJson('/api/tracking',[
-//            'data' =>[
-//                [
-//                    'company' => 'shunfeng',
-//                    'number' => 'amkiop',
-//                ],
-//                [
-//                    'company' => 'shunfeng',
-//                    'number' => 'amkiop111111',
-//                ],
-//            ]
-//        ]);
-
-//        dd($response->getContent());
         $this->assertDatabaseCount('trackings',2);
         $this->assertDatabaseCount('packages',1);
-        $response->assertStatus(200);
     }
 }

@@ -67,11 +67,22 @@
                 </div>
             @endif
 
+            @if($package->slips->isNotempty())
+                <div class="flex flex-col mt-6">
+                    <img class="w-72 h-72 rounded-md border border-2 dark:border-white" src="{{$package->slips->first()->url}}" alt="">
+                </div>
+            @endif
 
         </div>
 
 
-{{--        <div class="mt-6 p-4">--}}
+
+
+
+
+
+
+        {{--        <div class="mt-6 p-4">--}}
 {{--        <ul>--}}
 {{--            @foreach( $package->tracking as $tracking)--}}
 {{--            <li>{{$tracking->company}} - {{$tracking->number}}</li>--}}

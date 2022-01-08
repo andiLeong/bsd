@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Slip extends Model
 {
@@ -22,5 +24,10 @@ class Slip extends Model
     public function approve()
     {
         return $this->update(['approve',true]);
+    }
+
+    public function url(): Attribute
+    {
+        return Attribute::get(fn($value) =>  Storage::disk('digitalocean')->url($value)  );
     }
 }

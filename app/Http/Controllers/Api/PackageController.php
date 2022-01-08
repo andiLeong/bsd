@@ -11,14 +11,15 @@ class PackageController extends Controller
     public function index()
     {
         $user = auth('api')->user();
-        $user->load('package');
-        return $user;
+        return Package::where('user_id',$user->id)->withCount('tracking')->latest('id')->paginate(10);
+//        $user->load('package');
+//        return $user;
     }
 
     public function show(Package $package)
     {
         //to do authorize the package owner
-        $package->load(['slip','tracking']);
+        $package->load(['slips','tracking']);
         return $package;
     }
 }

@@ -156,7 +156,7 @@
 
                             <form action="/logout" method="post">
                                 @csrf
-                                <button class="block px-4 py-2 text-sm text-gray-700" type="submit">Sign out</button>
+                                <button class="w-full block px-4 py-2 text-sm text-gray-700" type="submit">Sign out</button>
                             </form>
 {{--                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>--}}
                         </div>

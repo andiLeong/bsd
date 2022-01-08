@@ -14,7 +14,7 @@ abstract class TestCase extends BaseTestCase
     {
         $userId = $this->user($user)->id;
         return $this->json($method, $endpoint, $data, array_merge($headers, [
-            'Authorization' => 'Bearer ' . auth()->tokenById($userId)
+            'Authorization' => 'Bearer ' . auth('api')->tokenById($userId)
         ]));
     }
 
