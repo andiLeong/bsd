@@ -6,11 +6,13 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\RegistrationData;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
     use LazilyRefreshDatabase;
+    use RegistrationData;
 
     /** @test */
     public function it_can_register_user()
@@ -56,23 +58,6 @@ class RegistrationTest extends TestCase
             ['option', 'sssssssss'],
         ];
     }
-
-
-    /**
-     * @param array $overrides
-     * @return array
-     */
-    protected function validFields($overrides = [])
-    {
-        return array_merge([
-            'name' => 'ronald',
-            'phone' => 13798050851,
-            'location' => 'EM',
-            'password' => '123456',
-            'option' => 'air',
-            'street' => 'my street',
-        ],$overrides);
-}
 
 
 }

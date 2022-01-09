@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -38,8 +39,14 @@ class User extends Authenticatable  implements JWTSubject
     protected static function booted()
     {
         static::creating(function ($user) {
-            $user->username = "{$user->option}_{$user->location}_{$user->name}";
+            $user->username = (new static)->generateUsername($user);
         });
+    }
+
+    private function generateUsername($user)
+    {
+        $name = Str::slug($user->name, '_'); ;
+        return "{$user->option}_{$user->location}_{$name}";
     }
 
     public function address()
